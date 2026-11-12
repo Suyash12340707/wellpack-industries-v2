@@ -76,7 +76,7 @@ export default function Hero() {
             industries across India.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Button to="/contact" variant="primary">Request a Quote</Button>
+            <Button to="/order" variant="primary">⚡ Configure & Order</Button>
             <Button to="/products" variant="secondary">Our Products →</Button>
           </div>
         </FadeUpWrapper>

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { retrieveContext } from '../data/knowledgeBase'
+import { GROQ_MODEL } from '../services/groqConfig'
 
 function buildSystemPrompt(contextEntries) {
   const contextText = contextEntries.map(e => e.content).join('\n\n---\n\n')
@@ -29,8 +30,8 @@ Respond in a friendly, professional tone. Keep responses under 200 words unless 
 
 export function useChatbot() {
   const [messages, setMessages] = useState([])
-  const [loading, setLoading]   = useState(false)
-  const [error, setError]       = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const sendMessage = useCallback(async (userText) => {
     if (!userText.trim()) return
@@ -42,19 +43,21 @@ export function useChatbot() {
     setError(null)
 
     try {
-      // 1. Retrieve relevant knowledge base context
+      const apiKey = import.meta.env.VITE_GROQ_API_KEY?.trim()
+      if (!apiKey) {
+        throw new Error('VITE_GROQ_API_KEY is missing from .env.local')
+      }
+
       const context = retrieveContext(userText)
       const systemPrompt = buildSystemPrompt(context)
-
-      // 2. Call Groq API (free, OpenAI-compatible)
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+          'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
+          model: GROQ_MODEL,
           max_tokens: 512,
           temperature: 0.4,
           messages: [
@@ -65,8 +68,15 @@ export function useChatbot() {
       })
 
       if (!response.ok) {
-        const err = await response.json()
-        throw new Error(err?.error?.message || 'API error')
+        const responseBody = await response.text()
+        let detail = responseBody || response.statusText
+        try {
+          const errorData = JSON.parse(responseBody)
+          detail = errorData?.error?.message || detail
+        } catch {
+          // Keep the response text when the server does not return JSON.
+        }
+        throw new Error(`Groq API error (${response.status}): ${detail}`)
       }
 
       const data = await response.json()
@@ -74,10 +84,10 @@ export function useChatbot() {
         || 'Sorry, I could not generate a response.'
 
       setMessages(prev => [...prev, { role: 'assistant', content: assistantText }])
-
     } catch (err) {
-      console.error('Chatbot error:', err)
-      setError('Something went wrong.')
+      const message = err instanceof Error ? err.message : String(err)
+      console.error('Chatbot error:', message)
+      setError(message)
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'Apologies, I ran into a technical issue. Please email us at sales@wellpackindustries.com or call +91 98765 43210.',

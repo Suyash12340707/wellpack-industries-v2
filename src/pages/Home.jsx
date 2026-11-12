@@ -82,13 +82,8 @@ export default function Home() {
             Tell us your requirements — width, thickness, quantity, colour. We'll get back within 24 hours with the best price.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button to="/contact" variant="primary">Send Enquiry</Button>
-            <Button
-              onClick={() => document.querySelector('[aria-label="Open chat"]')?.click()}
-              variant="secondary"
-            >
-              💬 Chat With Us
-            </Button>
+            <Button to="/order" variant="primary">⚡ Configure & Order Online</Button>
+            <Button to="/contact" variant="secondary">Direct Enquiry</Button>
           </div>
         </FadeUpWrapper>
       </section>

@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellpack Industries — Precision PP Strapping & Operations</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. CSS VARIABLES & BASE RESET
+       ========================================================= */
+    :root {
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --navy-dark: #0B1120;
+      --orange: #F97316;
+      --orange-hover: #EA580C;
+      --cyan: #06B6D4;
+      --green: #22C55E;
+      --red: #EF4444;
+      --white: #FFFFFF;
+      --slate: #94A3B8;
+      --border: rgba(255, 255, 255, 0.08);
+      
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy-light); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* =========================================================
+       2. NAVIGATION HEADER
+       ========================================================= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      z-index: 1000;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-logo span {
+      color: var(--orange);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--orange);
+    }
+
+    .btn-portal {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.45rem 0.9rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-portal:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .btn-order-cta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      background: var(--orange);
+      color: #000;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-order-cta:hover {
+      background: var(--orange-hover);
+      transform: translateY(-1px);
+    }
+
+    /* =========================================================
+       3. PAGE CONTAINERS (SPA View Switching)
+       ========================================================= */
+    main {
+      padding-top: 90px;
+      min-height: calc(100vh - 70px);
+    }
+
+    .page-section {
+      display: none;
+      padding: 2rem 5vw 5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Headers */
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .display-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .sub-lead {
+      color: var(--slate);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* =========================================================
+       4. HOME PAGE STYLES
+       ========================================================= */
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 3rem;
+      padding: 3rem 0;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      color: var(--orange);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 4rem 0;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--slate);
+      margin-top: 0.3rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(249, 115, 22, 0.4);
+    }
+
+    .product-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      margin: 0.5rem 0;
+    }
+
+    /* =========================================================
+       5. ORDER CONFIGURATOR STYLES
+       ========================================================= */
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .form-card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .form-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .step-circle {
+      width: 24px;
+      height: 24px;
+      background: var(--orange);
+      color: #000;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .selector-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-select {
+      flex: 1;
+      min-width: 65px;
+      padding: 0.6rem 0.5rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .btn-select.active {
+      background: var(--orange);
+      color: #000;
+      font-weight: bold;
+      border-color: var(--orange);
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .swatch.active {
+      transform: scale(1.15);
+      border-color: var(--white);
+      box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--slate);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--orange);
+    }
+
+    /* Live Calculator Panel */
+    .metric-summary-card {
+      background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      position: sticky;
+      top: 100px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .metric-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .metric-box-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--slate);
+      text-transform: uppercase;
+    }
+
+    .metric-box-val {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-top: 0.2rem;
+    }
+
+    /* =========================================================
+       6. OWNER DASHBOARD STYLES
+       ========================================================= */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .kpi-card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .kpi-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--slate);
+      text-transform: uppercase;
+    }
+
+    .kpi-val {
+      font-family: var(--font-mono);
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-top: 0.2rem;
+    }
+
+    .table-container {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 2.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.85);
+      padding: 0.9rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--slate);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: bold;
+    }
+
+    .badge-critical {
+      background: rgba(239, 68, 68, 0.2);
+      color: #EF4444;
+      border: 1px solid #EF4444;
+    }
+
+    .badge-high {
+      background: rgba(245, 158, 11, 0.2);
+      color: #F59E0B;
+      border: 1px solid #F59E0B;
+    }
+
+    .badge-normal {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22C55E;
+      border: 1px solid #22C55E;
+    }
+
+    .status-select {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 0.35rem 0.5rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    /* Inventory Bars */
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .inv-card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .inv-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .inv-val {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--orange);
+      margin: 0.5rem 0 1rem;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--slate);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .hero-container, .config-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      nav {
+        gap: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER / NAVBAR
+       ========================================================= -->
+  <header>
+    <a class="brand-logo" onclick="switchPage('home')">
+      WELL<span>PACK</span>
+    </a>
+
+    <nav>
+      <a class="nav-link active" id="nav-home" onclick="switchPage('home')">Home</a>
+      <a class="nav-link" id="nav-order" onclick="switchPage('order')">Custom Order</a>
+      <a class="nav-link" id="nav-dashboard" onclick="switchPage('dashboard')">Owner Dashboard</a>
+      
+      <button class="btn-portal" onclick="switchPage('dashboard')">🔒 Admin</button>
+      <button class="btn-order-cta" onclick="switchPage('order')">+ Order Online</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         PAGE 1: HOME SECTION
+         ========================================================= -->
+    <section id="page-home" class="page-section active">
+      <div class="hero-container">
+        <div>
+          <div class="badge-pill">
+            <span style="display:inline-block; width:6px; height:6px; background:var(--orange); border-radius:50%;"></span>
+            Industrial PP Strapping Manufacturer • Pune, India
+          </div>
+          <h1 class="display-title">
+            BUILT TO <span style="color:var(--orange);">BIND.</span><br>
+            MADE TO <span style="color:var(--cyan);">LAST.</span>
+          </h1>
+          <p class="sub-lead">
+            High-tensile Polypropylene (PP) strapping coils engineered for automated packaging lines, high-speed friction weld strapping machines, and heavy pallet logistics.
+          </p>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <button class="btn-order-cta" style="padding:0.85rem 1.75rem; font-size:0.85rem;" onclick="switchPage('order')">
+              ⚡ Configure Custom Strap & Order
+            </button>
+            <button class="btn-portal" style="padding:0.85rem 1.5rem; font-size:0.85rem;" onclick="switchPage('dashboard')">
+              📊 View Production Dashboard
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <!-- Visual Strap Roll Simulation -->
+          <div style="background:var(--navy-light); border:1px solid var(--border); border-radius:16px; padding:2.5rem; text-align:center;">
+            <div style="width:160px; height:160px; border-radius:50%; border:18px solid #FACC15; background:var(--navy); margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center; box-shadow:0 0 25px rgba(250, 204, 21, 0.25);">
+              <div style="width:60px; height:60px; border-radius:50%; background:#713F12; border:4px solid #A16207; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.65rem; color:#FEF08A;">
+                200mm
+              </div>
+            </div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--orange);">PRECISION DIAMOND EMBOSSED</div>
+            <div style="font-weight:600; font-size:1.1rem; margin-top:0.3rem;">12mm Semi-Automatic PP Strap</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Factory Stats Strip -->
+      <div class="stats-strip">
+        <div>
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Years of Manufacturing Excellence</div>
+        </div>
+        <div>
+          <div class="stat-number">50,000+</div>
+          <div class="stat-label">Metric Tonnes Extruded</div>
+        </div>
+        <div>
+          <div class="stat-number">400+</div>
+          <div class="stat-label">Active Industrial B2B Clients</div>
+        </div>
+        <div>
+          <div class="stat-number">99.4%</div>
+          <div class="stat-label">Zero-Camber Arch Feed Reliability</div>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <span class="section-tag">Product Catalog</span>
+      <h2 class="display-title" style="font-size:2.4rem;">ENGINEERED FOR PACKAGING MACHINERY</h2>
+
+      <div class="cards-grid">
+        <div class="product-card">
+          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--orange);">ARCH MACHINE READY</span>
+          <h3>FULLY AUTOMATIC STRAP</h3>
+          <p style="color:var(--slate); font-size:0.88rem; margin-bottom:1rem;">
+            100% Virgin PP granules with ultra-low camber. Runs seamlessly on 60 straps/min automated arch machines.
+          </p>
+          <ul style="list-style:none; font-family:var(--font-mono); font-size:0.75rem; color:var(--slate); line-height:1.8;">
+            <li>• Widths: 9mm, 12mm, 15mm</li>
+            <li>• Core: 406mm (Jumbo Coil)</li>
+            <li>• Strength: &ge; 175 kgf</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--cyan);">INDUSTRY STANDARD</span>
+          <h3>SEMI-AUTOMATIC STRAP</h3>
+          <p style="color:var(--slate); font-size:0.88rem; margin-bottom:1rem;">
+            Diamond embossed surface for friction welding. Ideal for table-top strapping machines in warehouses.
+          </p>
+          <ul style="list-style:none; font-family:var(--font-mono); font-size:0.75rem; color:var(--slate); line-height:1.8;">
+            <li>• Widths: 9mm, 12mm, 15mm</li>
+            <li>• Core: 200mm (Standard)</li>
+            <li>• Strength: &ge; 130 kgf</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--green);">HIGH BURST RATED</span>
+          <h3>HEAVY DUTY HIGH-TENSILE</h3>
+          <p style="color:var(--slate); font-size:0.88rem; margin-bottom:1rem;">
+            Thick-gauge high break load PP band for ceramic tile cartons, auto-components, and heavy pallet binding.
+          </p>
+          <ul style="list-style:none; font-family:var(--font-mono); font-size:0.75rem; color:var(--slate); line-height:1.8;">
+            <li>• Widths: 15mm, 19mm</li>
+            <li>• Thickness: up to 0.85mm</li>
+            <li>• Strength: &ge; 280 kgf</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PAGE 2: DEDICATED CUSTOMER ORDER CONFIGURATOR
+         ========================================================= -->
+    <section id="page-order" class="page-section">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <span class="section-tag">B2B Direct Order & Custom RFQ</span>
+        <h1 class="display-title">
+          CUSTOM PP STRAP <span style="color:var(--orange);">CONFIGURATOR</span>
+        </h1>
+        <p class="sub-lead" style="margin:0 auto;">
+          Configure precision straps for your packaging machines. Set target delivery deadlines and receive automated priority factory scheduling.
+        </p>
+      </div>
+
+      <div class="config-grid">
+        <!-- Left: Form Controls -->
+        <div>
+          <!-- Step 1: Grade -->
+          <div class="form-card">
+            <h4><span class="step-circle">1</span> SELECT STRAP GRADE</h4>
+            <div class="form-group">
+              <select id="cfg-grade" onchange="recalculateSpecs()">
+                <option value="Semi-Automatic Grade (Standard)">Semi-Automatic Grade (Standard 200mm Core)</option>
+                <option value="Fully Automatic Grade (Virgin PP)">Fully Automatic Grade (Virgin PP 406mm Core)</option>
+                <option value="Heavy Duty High-Tensile (Virgin PP)">Heavy Duty High-Tensile (Virgin PP)</option>
+                <option value="Manual Hand Grade (Embossed)">Manual Hand Grade (Embossed)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 2: Dimensions & Color -->
+          <div class="form-card">
+            <h4><span class="step-circle">2</span> SPECIFICATIONS & COLOR</h4>
+            
+            <div class="form-group">
+              <label>Strap Width</label>
+              <div class="selector-buttons" id="width-buttons">
+                <button type="button" class="btn-select" onclick="setWidth(9, this)">9 mm</button>
+                <button type="button" class="btn-select active" onclick="setWidth(12, this)">12 mm</button>
+                <button type="button" class="btn-select" onclick="setWidth(15, this)">15 mm</button>
+                <button type="button" class="btn-select" onclick="setWidth(19, this)">19 mm</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Thickness (mm)</label>
+              <div class="selector-buttons" id="thickness-buttons">
+                <button type="button" class="btn-select" onclick="setThickness(0.50, this)">0.50 mm</button>
+                <button type="button" class="btn-select active" onclick="setThickness(0.65, this)">0.65 mm</button>
+                <button type="button" class="btn-select" onclick="setThickness(0.70, this)">0.70 mm</button>
+                <button type="button" class="btn-select" onclick="setThickness(0.85, this)">0.85 mm</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Strap Color: <span id="color-label" style="color:var(--white);">Industrial Yellow</span></label>
+              <div class="color-swatches">
+                <div class="swatch active" style="background:#FACC15;" onclick="setColor('Industrial Yellow', '#FACC15', this)"></div>
+                <div class="swatch" style="background:#F8FAFC; border-color:#CBD5E1;" onclick="setColor('White (Transparent)', '#F8FAFC', this)"></div>
+                <div class="swatch" style="background:#2563EB;" onclick="setColor('Navy Blue', '#2563EB', this)"></div>
+                <div class="swatch" style="background:#1E293B; border-color:#0F172A;" onclick="setColor('Carbon Black', '#1E293B', this)"></div>
+                <div class="swatch" style="background:#10B981;" onclick="setColor('Emerald Green', '#10B981', this)"></div>
+                <div class="swatch" style="background:#EF4444;" onclick="setColor('Signal Red', '#EF4444', this)"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label>Core Size</label>
+                <select id="cfg-core" onchange="recalculateSpecs()">
+                  <option value="200">200mm (Standard Core)</option>
+                  <option value="406">406mm (Jumbo Arch Core)</option>
+                </select>
+              </div>
+              <div>
+                <label>Length / Roll</label>
+                <select id="cfg-meters" onchange="recalculateSpecs()">
+                  <option value="1500">1,500 Meters</option>
+                  <option value="2000" selected>2,000 Meters</option>
+                  <option value="3000">3,000 Meters</option>
+                  <option value="4000">4,000 Meters</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Quantity & Deadline -->
+          <div class="form-card">
+            <h4><span class="step-circle">3</span> QUANTITY & TARGET DEADLINE</h4>
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <label style="margin:0;">Number of Rolls</label>
+                <span id="rolls-display" style="font-family:var(--font-mono); font-size:0.85rem; color:var(--orange); font-weight:bold;">20 Rolls</span>
+              </div>
+              
+              <!-- Direct Number Input + Buttons -->
+              <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.5rem;">
+                <button type="button" class="btn-select" style="max-width:45px;" onclick="adjustRolls(-10)">-10</button>
+                <button type="button" class="btn-select" style="max-width:40px;" onclick="adjustRolls(-1)">-1</button>
+                <input type="number" id="cfg-rolls-num" min="1" max="5000" value="20" oninput="updateRolls(this.value)" style="text-align:center; font-family:var(--font-mono); font-weight:bold; color:var(--orange); border-color:var(--orange);">
+                <button type="button" class="btn-select" style="max-width:40px;" onclick="adjustRolls(1)">+1</button>
+                <button type="button" class="btn-select" style="max-width:45px;" onclick="adjustRolls(10)">+10</button>
+              </div>
+
+              <!-- Smooth range slider -->
+              <input type="range" id="cfg-rolls" min="1" max="500" step="1" value="20" oninput="updateRolls(this.value)" style="accent-color:var(--orange); width:100%;">
+
+              <!-- Quick Presets -->
+              <div style="display:flex; gap:0.35rem; margin-top:0.5rem;">
+                <button type="button" class="btn-select" style="font-size:0.72rem; padding:0.3rem;" onclick="updateRolls(10)">10 Rolls</button>
+                <button type="button" class="btn-select" style="font-size:0.72rem; padding:0.3rem;" onclick="updateRolls(20)">20 Rolls</button>
+                <button type="button" class="btn-select" style="font-size:0.72rem; padding:0.3rem;" onclick="updateRolls(50)">50 Rolls</button>
+                <button type="button" class="btn-select" style="font-size:0.72rem; padding:0.3rem;" onclick="updateRolls(100)">100 Rolls</button>
+                <button type="button" class="btn-select" style="font-size:0.72rem; padding:0.3rem;" onclick="updateRolls(250)">250 Rolls</button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label>Target Delivery Date *</label>
+                <input type="date" id="cfg-deadline" required>
+              </div>
+              <div>
+                <label>Urgency Level</label>
+                <select id="cfg-urgency">
+                  <option value="Standard">Standard Schedule (Normal)</option>
+                  <option value="High">Priority Queue (3-5 Days)</option>
+                  <option value="Critical">🚨 Emergency Line Stop (&lt;48 Hours)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Special Instructions / Notes</label>
+              <input type="text" id="cfg-notes" placeholder="e.g. Shrink wrapped pallets required">
+            </div>
+          </div>
+
+          <!-- Step 4: Client Info -->
+          <div class="form-card">
+            <h4><span class="step-circle">4</span> CLIENT & DELIVERY DETAILS</h4>
+            <div class="form-group">
+              <label>Company / Enterprise Name *</label>
+              <input type="text" id="cfg-company" placeholder="e.g. Tata Motors Ltd" required>
+            </div>
+            <div class="form-row">
+              <div>
+                <label>Contact Person *</label>
+                <input type="text" id="cfg-person" placeholder="Your Name" required>
+              </div>
+              <div>
+                <label>Phone / WhatsApp *</label>
+                <input type="tel" id="cfg-phone" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Delivery Address *</label>
+              <textarea id="cfg-address" rows="2" placeholder="Factory / Warehouse location" required></textarea>
+            </div>
+
+            <button type="button" class="btn-order-cta" style="width:100%; padding:1rem; font-size:0.9rem;" onclick="submitCustomerOrder()">
+              SUBMIT PRODUCTION ORDER →
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Live Physics & Metric Calculator -->
+        <div>
+          <div class="metric-summary-card">
+            <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--orange); letter-spacing:0.1em; text-transform:uppercase;">
+              ⚡ REAL-TIME SPEC CALCULATION
+            </span>
+            <h3 id="calc-spec-title" style="font-family:var(--font-display); font-size:1.8rem; margin:0.5rem 0 1rem;">
+              12mm × 0.65mm Semi-Automatic
+            </h3>
+
+            <div class="metric-grid">
+              <div class="metric-box">
+                <div class="metric-box-title">Net Weight / Roll</div>
+                <div class="metric-box-val" id="calc-roll-weight">10.6 <span style="font-size:0.75rem; color:var(--slate);">kg</span></div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-box-title">Tensile Break Strength</div>
+                <div class="metric-box-val" style="color:var(--cyan);" id="calc-strength">&ge; 140 <span style="font-size:0.75rem; color:var(--slate);">kgf</span></div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-box-title">Total Batch Weight</div>
+                <div class="metric-box-val" style="color:var(--orange);" id="calc-total-weight">212 <span style="font-size:0.75rem; color:var(--slate);">kg</span></div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-box-title">Total Length</div>
+                <div class="metric-box-val" style="color:var(--green);" id="calc-total-meters">40,000 <span style="font-size:0.75rem; color:var(--slate);">m</span></div>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--border); padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--slate);">ESTIMATED ORDER VALUE</div>
+                <div style="font-family:var(--font-mono); font-size:1.4rem; font-weight:bold;" id="calc-total-price">₹26,500 <span style="font-size:0.75rem; color:var(--slate); font-weight:normal;">+ GST</span></div>
+              </div>
+              <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--cyan);" id="calc-unit-rate">₹1,325 / roll</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PAGE 3: OWNER OPERATIONS DASHBOARD
+         ========================================================= -->
+    <section id="page-dashboard" class="page-section">
+      <div class="dashboard-header">
+        <div>
+          <span class="section-tag">Owner & Factory Operations Portal</span>
+          <h1 class="display-title" style="margin:0; font-size:2.5rem;">
+            PRODUCTION <span style="color:var(--orange);">DASHBOARD</span>
+          </h1>
+        </div>
+
+        <div style="display:flex; gap:0.75rem;">
+          <button class="btn-portal" onclick="triggerAiAudit()">⚡ Run AI Audit</button>
+          <button class="btn-order-cta" onclick="switchPage('order')">+ New Order</button>
+        </div>
+      </div>
+
+      <!-- Top KPI Row -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-title">Active Queue</div>
+          <div class="kpi-val" id="kpi-orders-count">4 <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Orders</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Queue Volume</div>
+          <div class="kpi-val" style="color:var(--cyan);" id="kpi-total-tonnes">2.95 <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Tonnes</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Critical Deadlines (&lt;48h)</div>
+          <div class="kpi-val" style="color:var(--red);" id="kpi-critical-count">1 <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Urgent</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Pipeline Value</div>
+          <div class="kpi-val" style="color:var(--green);" id="kpi-pipeline-val">₹3.80L</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">PP Granules In Stock</div>
+          <div class="kpi-val" style="color:var(--orange);" id="kpi-granules-stock">7.05 <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Tonnes</span></div>
+        </div>
+      </div>
+
+      <!-- Live Orders Table -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="font-family:var(--font-display); font-size:1.6rem; letter-spacing:0.05em;">LIVE PRODUCTION ORDERS</h3>
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--slate);">Synced with Client Order Form</span>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Order Ref</th>
+              <th>Client / Company</th>
+              <th>Strap Specs</th>
+              <th>Quantity & Weight</th>
+              <th>Deadline</th>
+              <th>AI Priority</th>
+              <th>Status</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders-table-body">
+            <!-- Populated dynamically via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Raw Material Inventory Gauges -->
+      <h3 style="font-family:var(--font-display); font-size:1.6rem; letter-spacing:0.05em; margin:2.5rem 0 1rem;">
+        RAW MATERIAL INVENTORY & STOCK
+      </h3>
+
+      <div class="inventory-grid">
+        <div class="inv-card">
+          <div class="inv-title">PP Virgin Polymer Granules (Prime)</div>
+          <div class="inv-val" id="inv-pp-virgin">4,250 kg</div>
+          <div style="display:flex; gap:0.4rem; margin-bottom:0.6rem;">
+            <input type="number" id="inward-virgin" min="1" placeholder="Custom kg (e.g. 25)" style="font-size:0.75rem; padding:0.4rem;">
+            <button class="btn-order-cta" style="font-size:0.7rem; padding:0.4rem 0.6rem;" onclick="addCustomStock('virgin', 'inward-virgin', 1)">+ Inward</button>
+            <button class="btn-portal" style="font-size:0.7rem; padding:0.4rem 0.5rem; color:#F87171;" onclick="addCustomStock('virgin', 'inward-virgin', -1)">- Scrap</button>
+          </div>
+          <div style="display:flex; gap:0.3rem;">
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('virgin', 50)">+50 kg</button>
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('virgin', 500)">+500 kg</button>
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('virgin', 1000)">+1 Tonne</button>
+          </div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-title">PP Semi-Virgin Granules (Commercial)</div>
+          <div class="inv-val" id="inv-pp-semi">2,800 kg</div>
+          <div style="display:flex; gap:0.4rem; margin-bottom:0.6rem;">
+            <input type="number" id="inward-semi" min="1" placeholder="Custom kg (e.g. 15)" style="font-size:0.75rem; padding:0.4rem;">
+            <button class="btn-order-cta" style="font-size:0.7rem; padding:0.4rem 0.6rem;" onclick="addCustomStock('semi', 'inward-semi', 1)">+ Inward</button>
+            <button class="btn-portal" style="font-size:0.7rem; padding:0.4rem 0.5rem; color:#F87171;" onclick="addCustomStock('semi', 'inward-semi', -1)">- Scrap</button>
+          </div>
+          <div style="display:flex; gap:0.3rem;">
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('semi', 50)">+50 kg</button>
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('semi', 500)">+500 kg</button>
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('semi', 1000)">+1 Tonne</button>
+          </div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-title">200mm Paper Cores (Semi-Auto)</div>
+          <div class="inv-val" id="inv-cores-200">620 pcs</div>
+          <div style="display:flex; gap:0.4rem; margin-bottom:0.6rem;">
+            <input type="number" id="inward-core200" min="1" placeholder="Custom pcs (e.g. 12)" style="font-size:0.75rem; padding:0.4rem;">
+            <button class="btn-order-cta" style="font-size:0.7rem; padding:0.4rem 0.6rem;" onclick="addCustomStock('core200', 'inward-core200', 1)">+ Inward</button>
+            <button class="btn-portal" style="font-size:0.7rem; padding:0.4rem 0.5rem; color:#F87171;" onclick="addCustomStock('core200', 'inward-core200', -1)">- Scrap</button>
+          </div>
+          <div style="display:flex; gap:0.3rem;">
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('core200', 25)">+25 pcs</button>
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('core200', 100)">+100 pcs</button>
+          </div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-title">406mm Jumbo Cores (Auto-Arch)</div>
+          <div class="inv-val" id="inv-cores-406">240 pcs</div>
+          <div style="display:flex; gap:0.4rem; margin-bottom:0.6rem;">
+            <input type="number" id="inward-core406" min="1" placeholder="Custom pcs (e.g. 8)" style="font-size:0.75rem; padding:0.4rem;">
+            <button class="btn-order-cta" style="font-size:0.7rem; padding:0.4rem 0.6rem;" onclick="addCustomStock('core406', 'inward-core406', 1)">+ Inward</button>
+            <button class="btn-portal" style="font-size:0.7rem; padding:0.4rem 0.5rem; color:#F87171;" onclick="addCustomStock('core406', 'inward-core406', -1)">- Scrap</button>
+          </div>
+          <div style="display:flex; gap:0.3rem;">
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('core406', 20)">+20 pcs</button>
+            <button class="btn-portal" style="font-size:0.68rem; flex:1;" onclick="addStock('core406', 50)">+50 pcs</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       MODAL: Order Confirmation & Job Work Order
+       ========================================================= -->
+  <div id="modal-confirm" class="modal-overlay">
+    <div class="modal-box">
+      <button class="btn-close" onclick="closeModal()">✕</button>
+      <div style="text-align:center;">
+        <div style="width:50px; height:50px; border-radius:50%; background:rgba(34,197,94,0.2); border:1px solid var(--green); color:var(--green); font-size:1.5rem; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+          ✓
+        </div>
+        <h3 style="font-family:var(--font-display); font-size:1.8rem; letter-spacing:0.05em;">ORDER QUEUED SUCCESSFULLY</h3>
+        <p style="font-family:var(--font-mono); color:var(--orange); font-size:1.1rem; margin-bottom:1.5rem;" id="modal-order-id">
+          WP-2026-1089
+        </p>
+        <p style="color:var(--slate); font-size:0.88rem; margin-bottom:2rem;" id="modal-order-desc">
+          Your custom strap specification has been scheduled in the factory extrusion queue.
+        </p>
+
+        <div style="display:flex; gap:1rem; justify-content:center;">
+          <button class="btn-order-cta" onclick="switchPage('dashboard'); closeModal();">
+            View on Owner Dashboard →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       7. JAVASCRIPT: LOGIC & CLIENT-SIDE STATE
+       ========================================================= -->
+  <script>
+    // State Variables
+    let selectedWidth = 12;
+    let selectedThickness = 0.65;
+    let selectedColor = 'Industrial Yellow';
+    let selectedRolls = 20;
+
+    let inventory = {
+      virginKg: 4250,
+      semiKg: 2800,
+      core200: 620,
+      core406: 240
+    };
+
+    let orders = [
+      {
+        id: 'WP-2026-1081',
+        company: 'Tata AutoComp Systems Ltd',
+        person: 'Rajesh Kulkarni',
+        specs: '12mm × 0.65mm (Industrial Yellow)',
+        rolls: 80,
+        weightKg: 840,
+        deadline: '2026-10-14',
+        priority: 'P1-Critical',
+        status: 'In Production'
+      },
+      {
+        id: 'WP-2026-1082',
+        company: 'Mahindra Logistics Fulfillment',
+        person: 'Sandeep Shinde',
+        specs: '15mm × 0.70mm (White Transparent)',
+        rolls: 120,
+        weightKg: 1176,
+        deadline: '2026-10-18',
+        priority: 'P2-High',
+        status: 'Pending'
+      },
+      {
+        id: 'WP-2026-1083',
+        company: 'Apex Carton & Corrugators',
+        person: 'Vinod Panchal',
+        specs: '9mm × 0.55mm (Navy Blue)',
+        rolls: 40,
+        weightKg: 368,
+        deadline: '2026-10-22',
+        priority: 'P3-Normal',
+        status: 'Pending'
+      },
+      {
+        id: 'WP-2026-1084',
+        company: 'Godrej Appliances Warehouse',
+        person: 'Anjali Deshmukh',
+        specs: '19mm × 0.85mm (Industrial Yellow)',
+        rolls: 50,
+        weightKg: 575,
+        deadline: '2026-10-19',
+        priority: 'P2-High',
+        status: 'Pending'
+      }
+    ];
+
+    // Page Switching
+    function switchPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if (targetPage) targetPage.classList.add('active');
+
+      const targetNav = document.getElementById(`nav-${pageId}`);
+      if (targetNav) targetNav.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Spec Controls
+    function setWidth(val, btn) {
+      selectedWidth = val;
+      document.querySelectorAll('#width-buttons .btn-select').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      recalculateSpecs();
+    }
+
+    function setThickness(val, btn) {
+      selectedThickness = val;
+      document.querySelectorAll('#thickness-buttons .btn-select').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      recalculateSpecs();
+    }
+
+    function setColor(name, hex, swatch) {
+      selectedColor = name;
+      document.getElementById('color-label').innerText = name;
+      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+      swatch.classList.add('active');
+      recalculateSpecs();
+    }
+
+    function updateRolls(val) {
+      selectedRolls = Math.max(1, parseInt(val) || 1);
+      document.getElementById('rolls-display').innerText = `${selectedRolls} Rolls`;
+      const numInput = document.getElementById('cfg-rolls-num');
+      if (numInput && numInput.value != selectedRolls) numInput.value = selectedRolls;
+      const rangeInput = document.getElementById('cfg-rolls');
+      if (rangeInput && rangeInput.value != selectedRolls) rangeInput.value = Math.min(500, selectedRolls);
+      recalculateSpecs();
+    }
+
+    function adjustRolls(delta) {
+      updateRolls(selectedRolls + delta);
+    }
+
+    // Custom Stock Inward / Scrap
+    function addCustomStock(type, inputId, multiplier) {
+      const inputEl = document.getElementById(inputId);
+      if (!inputEl) return;
+      const val = parseFloat(inputEl.value);
+      if (isNaN(val) || val <= 0) {
+        alert('Please enter a valid positive quantity.');
+        return;
+      }
+      addStock(type, val * multiplier);
+      inputEl.value = '';
+    }
+
+    // Mathematical Spec Calculations
+    function recalculateSpecs() {
+      const grade = document.getElementById('cfg-grade').value;
+      const meters = parseInt(document.getElementById('cfg-meters').value) || 2000;
+
+      // PP Density = 0.905 g/cm3
+      const gramsPerMeter = selectedWidth * selectedThickness * 0.905;
+      const weightPerRoll = parseFloat(((gramsPerMeter * meters) / 1000).toFixed(2));
+      const totalWeightKg = Math.round(weightPerRoll * selectedRolls);
+      const totalMeters = meters * selectedRolls;
+
+      const tensileFactor = grade.includes('Virgin') || grade.includes('Heavy') ? 22 : 18;
+      const tensileStrength = Math.round(selectedWidth * selectedThickness * tensileFactor);
+
+      const baseRateKg = grade.includes('Heavy') ? 145 : (grade.includes('Virgin') ? 130 : 125);
+      const unitRate = Math.round(weightPerRoll * baseRateKg + 60);
+      const totalPrice = unitRate * selectedRolls;
+
+      // Update UI
+      document.getElementById('calc-spec-title').innerText = `${selectedWidth}mm × ${selectedThickness}mm ${grade.split(' ')[0]}`;
+      document.getElementById('calc-roll-weight').innerHTML = `${weightPerRoll} <span style="font-size:0.75rem; color:var(--slate);">kg</span>`;
+      document.getElementById('calc-strength').innerHTML = `&ge; ${tensileStrength} <span style="font-size:0.75rem; color:var(--slate);">kgf</span>`;
+      document.getElementById('calc-total-weight').innerHTML = `${totalWeightKg} <span style="font-size:0.75rem; color:var(--slate);">kg</span>`;
+      document.getElementById('calc-total-meters').innerHTML = `${totalMeters.toLocaleString()} <span style="font-size:0.75rem; color:var(--slate);">m</span>`;
+      document.getElementById('calc-total-price').innerHTML = `₹${totalPrice.toLocaleString('en-IN')} <span style="font-size:0.75rem; color:var(--slate); font-weight:normal;">+ GST</span>`;
+      document.getElementById('calc-unit-rate').innerText = `₹${unitRate.toLocaleString('en-IN')} / roll`;
+    }
+
+    // Submit Customer Order
+    function submitCustomerOrder() {
+      const company = document.getElementById('cfg-company').value.trim();
+      const person = document.getElementById('cfg-person').value.trim();
+      const phone = document.getElementById('cfg-phone').value.trim();
+      const deadline = document.getElementById('cfg-deadline').value;
+      const urgency = document.getElementById('cfg-urgency').value;
+
+      if (!company || !person || !phone || !deadline) {
+        alert('Please fill out all required fields marked with * (Company, Person, Phone, and Deadline).');
+        return;
+      }
+
+      // 10-digit Indian mobile validation
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      if (cleanPhone.length < 10) {
+        alert('Please enter a valid 10-digit phone number.');
+        return;
+      }
+
+      // Future date check
+      const todayStr = new Date().toISOString().split('T')[0];
+      if (deadline < todayStr) {
+        alert('Target delivery deadline cannot be in the past.');
+        return;
+      }
+
+      // AI Priority Classification
+      const today = new Date();
+      const targetDate = new Date(deadline);
+      const diffDays = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+
+      let priority = 'P3-Normal';
+      if (diffDays <= 2 || urgency === 'Critical') priority = 'P1-Critical';
+      else if (diffDays <= 5 || selectedRolls >= 80 || urgency === 'High') priority = 'P2-High';
+
+      const meters = parseInt(document.getElementById('cfg-meters').value) || 2000;
+      const weightPerRoll = (selectedWidth * selectedThickness * 0.905 * meters) / 1000;
+      const totalWeightKg = Math.round(weightPerRoll * selectedRolls);
+
+      const newId = `WP-2026-${1080 + orders.length + 1}`;
+      const newOrder = {
+        id: newId,
+        company,
+        person,
+        specs: `${selectedWidth}mm × ${selectedThickness}mm (${selectedColor})`,
+        rolls: selectedRolls,
+        weightKg: totalWeightKg,
+        deadline,
+        priority,
+        status: 'Pending'
+      };
+
+      orders.unshift(newOrder);
+      renderOrdersTable();
+
+      document.getElementById('modal-order-id').innerText = newId;
+      document.getElementById('modal-order-desc').innerText = 
+        `${selectedRolls} rolls (${totalWeightKg} kg) of ${selectedWidth}mm ${selectedColor} for ${company}. AI Priority Tagged: ${priority}.`;
+      document.getElementById('modal-confirm').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-confirm').classList.remove('active');
+    }
+
+    // Render Orders in Dashboard Table
+    function renderOrdersTable() {
+      const tbody = document.getElementById('orders-table-body');
+      tbody.innerHTML = '';
+
+      let totalTonnes = 0;
+      let criticalCount = 0;
+      let pipelineVal = 0;
+
+      orders.forEach(o => {
+        totalTonnes += o.weightKg;
+        if (o.priority === 'P1-Critical') criticalCount++;
+        pipelineVal += (o.rolls * 1250);
+
+        const tr = document.createElement('tr');
+        
+        const priorityBadge = o.priority === 'P1-Critical' 
+          ? `<span class="badge badge-critical">🚨 P1 Critical</span>`
+          : (o.priority === 'P2-High' ? `<span class="badge badge-high">⚡ P2 High</span>` : `<span class="badge badge-normal">🟢 P3 Normal</span>`);
+
+        tr.innerHTML = `
+          <td><strong>${o.id}</strong></td>
+          <td>
+            <div style="font-weight:600;">${o.company}</div>
+            <div style="font-size:0.75rem; color:var(--slate);">${o.person}</div>
+          </td>
+          <td style="color:var(--orange);">${o.specs}</td>
+          <td>
+            <strong>${o.rolls} Rolls</strong>
+            <div style="font-size:0.75rem; color:var(--slate);">${o.weightKg} kg</div>
+          </td>
+          <td>${o.deadline}</td>
+          <td>${priorityBadge}</td>
+          <td>
+            <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
+              <option value="Pending" ${o.status === 'Pending' ? 'selected' : ''}>Pending</option>
+              <option value="In Production" ${o.status === 'In Production' ? 'selected' : ''}>In Production</option>
+              <option value="Dispatched" ${o.status === 'Dispatched' ? 'selected' : ''}>Dispatched</option>
+              <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+            </select>
+          </td>
+          <td style="text-align:right;">
+            <button class="btn-portal" style="font-size:0.7rem; padding:0.25rem 0.5rem;" onclick="alert('Printing Factory Job Card for ${o.id}')">🖨️ Card</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update KPI figures
+      document.getElementById('kpi-orders-count').innerHTML = `${orders.length} <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Orders</span>`;
+      document.getElementById('kpi-total-tonnes').innerHTML = `${(totalTonnes / 1000).toFixed(2)} <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Tonnes</span>`;
+      document.getElementById('kpi-critical-count').innerHTML = `${criticalCount} <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Urgent</span>`;
+      document.getElementById('kpi-pipeline-val').innerText = `₹${(pipelineVal / 100000).toFixed(2)}L`;
+    }
+
+    function updateStatus(id, newStatus) {
+      const ord = orders.find(o => o.id === id);
+      if (ord) {
+        ord.status = newStatus;
+        if (newStatus === 'In Production') {
+          inventory.virginKg = Math.max(0, inventory.virginKg - ord.weightKg);
+          updateInventoryUI();
+        }
+      }
+    }
+
+    function addStock(type, amount) {
+      if (type === 'virgin') inventory.virginKg += amount;
+      if (type === 'semi') inventory.semiKg += amount;
+      if (type === 'core200') inventory.core200 += amount;
+      if (type === 'core406') inventory.core406 += amount;
+      updateInventoryUI();
+    }
+
+    function updateInventoryUI() {
+      document.getElementById('inv-pp-virgin').innerText = `${inventory.virginKg.toLocaleString()} kg`;
+      document.getElementById('inv-pp-semi').innerText = `${inventory.semiKg.toLocaleString()} kg`;
+      document.getElementById('inv-cores-200').innerText = `${inventory.core200.toLocaleString()} pcs`;
+      document.getElementById('inv-cores-406').innerText = `${inventory.core406.toLocaleString()} pcs`;
+      
+      const totalTonnes = (inventory.virginKg + inventory.semiKg) / 1000;
+      document.getElementById('kpi-granules-stock').innerHTML = `${totalTonnes.toFixed(2)} <span style="font-size:0.85rem; color:var(--slate); font-weight:normal;">Tonnes</span>`;
+    }
+
+    function triggerAiAudit() {
+      alert('AI Production Audit Complete:\n\n• 1 Critical order fast-tracked (Due < 48h).\n• Extruder line batch recommendation: Group 12mm Yellow orders together to eliminate color purge downtime.\n• Raw polymer stock is adequate for active orders.');
+    }
+
+    // Initial setup on page load
+    window.onload = () => {
+      // Set default deadline to 4 days from now
+      const d = new Date();
+      d.setDate(d.getDate() + 4);
+      document.getElementById('cfg-deadline').value = d.toISOString().split('T')[0];
+
+      recalculateSpecs();
+      renderOrdersTable();
+      updateInventoryUI();
+    };
+  </script>
+</body>
+</html>

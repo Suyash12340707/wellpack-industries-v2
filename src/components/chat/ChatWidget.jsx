@@ -56,7 +56,7 @@ export default function ChatWidget() {
   const [open, setOpen]       = useState(false)
   const [input, setInput]     = useState('')
   const [showSugg, setShowSugg] = useState(true)
-  const { messages, loading, sendMessage, clearChat } = useChatbot()
+  const { messages, loading, error, sendMessage, clearChat } = useChatbot()
   const bottomRef = useRef(null)
   const inputRef  = useRef(null)
 
@@ -244,6 +244,17 @@ export default function ChatWidget() {
               </div>
             )
           })}
+
+          {import.meta.env.DEV && error && (
+            <div role="status" style={{
+              color: 'var(--slate)',
+              fontSize: '0.72rem',
+              padding: '0 0.25rem',
+              overflowWrap: 'anywhere',
+            }}>
+              Developer detail: {error}
+            </div>
+          )}
 
           {/* Typing indicator */}
           {loading && (

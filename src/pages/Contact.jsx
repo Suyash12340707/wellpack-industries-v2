@@ -106,7 +106,7 @@ export default function Contact() {
             ─────────────────────────────────────────────────── */}
             <div style={{ marginTop: '2rem', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(249,115,22,0.2)' }}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.8096595863217!2d75.19562807499808!3d19.848005081522086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb9b7915ac923d%3A0xf9ec45e152f1dc76!2sWellpack%20industries!5e0!3m2!1sen!2sin!4v1776616315849!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.8096595863217!2d75.19562807499808!3d19.848005081522086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb9b7915ac923d%3A0xf9ec45e152f1dc76!2sWellpack%20industries!5e0!3m2!1sen!2sin!4v1776616315849!5m2!1sen!2sin"
                 width="100%"
                 height="220"
                 style={{ border: 0, display: 'block', filter: 'invert(90%) hue-rotate(180deg)' }}

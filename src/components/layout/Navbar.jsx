@@ -5,6 +5,7 @@ import Button from '../ui/Button'
 const links = [
   { to: '/',         label: 'Home' },
   { to: '/products', label: 'Products' },
+  { to: '/order',    label: 'Custom Order' },
   { to: '/about',    label: 'About Us' },
   { to: '/contact',  label: 'Contact' },
 ]
@@ -73,8 +74,24 @@ export default function Navbar() {
       </ul>
 
       {/* CTA */}
-      <div className="desktop-nav">
-        <Button to="/contact" variant="primary">Get a Quote</Button>
+      <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <Link
+          to="/admin"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'var(--slate)',
+            padding: '0.4rem 0.8rem',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            textDecoration: 'none',
+          }}
+        >
+          🔒 Owner Portal
+        </Link>
+        <Button to="/order" variant="primary">Order Online</Button>
       </div>
 
       {/* Hamburger (mobile) */}
@@ -127,10 +144,29 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
-          <Button to="/contact" variant="primary" style={{ alignSelf: 'flex-start' }}
-            onClick={() => setMenuOpen(false)}>
-            Get a Quote
-          </Button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
+            <Button to="/order" variant="primary" onClick={() => setMenuOpen(false)}>
+              Order Online / Custom Specs
+            </Button>
+            <Link
+              to="/admin"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.78rem',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: 'var(--orange)',
+                padding: '0.6rem',
+                textAlign: 'center',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid rgba(249, 115, 22, 0.4)',
+                textDecoration: 'none',
+              }}
+            >
+              🔒 Owner Portal (Admin)
+            </Link>
+          </div>
         </div>
       )}
 
